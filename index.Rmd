@@ -38,7 +38,7 @@ dsNames <- c("State", "Region", "Population", "Income", "Illiteracy",
                 "DaysFrost", "Area")
 ```
 
-* The data elements used from the "state"" dataset are:
+* The data elements used from the "state" dataset are:
     * `r dsNames`
     * Data elements are used to populate selectInput() widgets
 

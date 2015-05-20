@@ -30,7 +30,7 @@ knit        : slidify::knit2slides
 
 
 
-* The data elements used from the "state"" dataset are:
+* The data elements used from the "state" dataset are:
     * State, Region, Population, Income, Illiteracy, LifeExpectancy, MurderRate, HSGraduationRate, DaysFrost, Area
     * Data elements are used to populate selectInput() widgets
 
