@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Developing Data Products Course Project Presentation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Developing Data Products Course Project Presentation">
+  <meta name="author" content="James D. Hufton">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Developing Data Products Course Project Presentation</h1>
+    <h2>The States Explorer</h2>
+    <p>James D. Hufton<br/>Student</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The States Explorer Application</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><b>Motivation</b>
+
+<ul>
+<li>Explore and Demonstrate Dynamic UI Interfaces in a Shiny Application</li>
+<li>Use a simple data set that can be plotted in different ways</li>
+<li>Use the <b>Reactive</b> properties of renderPlot() to respond to changed settings in the UI widgets</li>
+<li>Dynamically hide or expose UI widgets based on selections in other UI widgets 
+to eliminate irrelevant widgets from the UI</li>
+</ul></li>
+<li><b>Implementation</b>
+
+<ul>
+<li>The state data set from the datasets library</li>
+<li>The conditionalPanel() UI widget used to expose/hide UI input widgets based on selections in other UI widgets</li>
+<li>The tabsetPanel() UI widget used to provide a multi-tabbed display to include 
+plots, instructions and information about the data set in the UI</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The States Explorer UI</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The data elements used from the &quot;state&quot;&quot; dataset are:
+
+<ul>
+<li>State, Region, Population, Income, Illiteracy, LifeExpectancy, MurderRate, HSGraduationRate, DaysFrost, Area</li>
+<li>Data elements are used to populate selectInput() widgets</li>
+</ul></li>
+</ul>
+
+<p><center><img src="./assets/img/img3.png" style="width:768px;height:356px" align="middle"></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The States Explorer - Sorting Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Sorting state codes on the X-axis by the Y-axis selection values requires some extra processing
+
+<ul>
+<li>The dataset is sorted by the selected Y-axis data values</li>
+<li>The state column is then refactored with the new order to allow it to print
+in the correct order as shown in the R code fragment below</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">if (input$dataSort == &#39;asc&#39;) {
+ #For an ascending sort, first sort the data by the selected Y-axis data item
+ pdataset &lt;- dataset[order(dataset[match(input$y,names(dataset))]),]
+ #Then re-factor the state list that is the X-axis so the plot sorts correctly
+ pdataset$State &lt;- factor(pdataset$State, levels = pdataset$State)
+} else if (input$dataSort == &#39;desc&#39;) {
+ #For an descending sort, first sort the data by the selected Y-axis data item
+ pdataset &lt;- dataset[order(-dataset[match(input$y,names(dataset))]),]
+ #Then re-factor the state list that is the X-axis so the plot sorts correctly
+ pdataset$State &lt;- factor(pdataset$State, levels = pdataset$State)
+            } 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The States Explorer UI - Dynamic Widgets</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Widgets exposed in the Shiny app are dynamically hidden or exposed based on the 
+selected value of the X-axis selector
+
+<ul>
+<li>Selecting <b>Region</b> as the X-axis hides the <b>Color By</b> selector and 
+<b>Sort</b> radio buttons</li>
+<li>With only four regions, sorting is not necessary to do region by region comaprisons 
+as it is when there are 50 states to compare</li>
+</ul></li>
+</ul>
+
+<p><center><img src="./assets/img/img2.png" style="width:768px;height:356px" align="middle"></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The States Explorer Application'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='The States Explorer UI'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The States Explorer - Sorting Data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The States Explorer UI - Dynamic Widgets'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
